@@ -8,6 +8,7 @@
 
 #import "QBAssetsViewController.h"
 #import <Photos/Photos.h>
+#import "UICollectionView+Ext.h"
 
 // Views
 #import "QBImagePickerController.h"
@@ -591,7 +592,7 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
         // Add asset to set
         [selectedAssets addObject:asset];
         
-        [collectionView reloadItemsAtIndexPaths:[collectionView indexPathsForVisibleItems]];
+        [collectionView reloadItemsAtIndexPaths:[collectionView selectedVisibleIndexPath]];
         
         self.lastSelectedItemIndexPath = indexPath;
         
@@ -630,7 +631,7 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
     // Remove asset from set
     [selectedAssets removeObject:asset];
     
-    [collectionView reloadItemsAtIndexPaths:[collectionView indexPathsForVisibleItems]];
+    [collectionView reloadItemsAtIndexPaths:[collectionView selectedVisibleIndexPath]];
     
     self.lastSelectedItemIndexPath = nil;
     
