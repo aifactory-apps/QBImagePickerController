@@ -485,6 +485,8 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
     
     // Selection state
     if ([self.imagePickerController.selectedAssets containsObject:asset]) {
+        NSUInteger index = [self.imagePickerController.selectedAssets indexOfObject:asset] + 1;
+        cell.countLabel.text = [NSString stringWithFormat:@"%lu", index];
         [cell setSelected:YES];
         [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
     }
@@ -589,6 +591,8 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
         // Add asset to set
         [selectedAssets addObject:asset];
         
+        [collectionView reloadItemsAtIndexPaths:[collectionView indexPathsForVisibleItems]];
+        
         self.lastSelectedItemIndexPath = indexPath;
         
         [self updateDoneButtonState];
@@ -625,6 +629,8 @@ static CGSize CGSizeScale(CGSize size, CGFloat scale) {
     
     // Remove asset from set
     [selectedAssets removeObject:asset];
+    
+    [collectionView reloadItemsAtIndexPaths:[collectionView indexPathsForVisibleItems]];
     
     self.lastSelectedItemIndexPath = nil;
     
